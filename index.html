@@ -307,8 +307,12 @@ document.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => switchTab(b
 $('#priceRange').oninput = renderRentals;
 $('#locSelect').onchange = () => { renderDir(); renderRentals(); };
 $('#searchInput').oninput = () => { renderDir(); renderRentals(); };
-
-renderCats(); renderDir(); renderRentals(); switchTab('emergency');
+document.querySelectorAll('.tab').forEach(el => {
+  el.addEventListener('click', () => {
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+  });
+});
+renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
 </script>
 </body>
 </html>
