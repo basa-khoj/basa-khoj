@@ -294,7 +294,25 @@ $('#postForm').onsubmit = e => {
   toast('✅ পোস্ট সফল হয়েছে!');
   switchTab('rentals');
 };
+function deleteRental(id) {
+  if (confirm('আপনি কি সত্যিই এই পোস্টটি মুছে ফেলতে চান?')) {
+    rentals = rentals.filter(item => item.id !== id);
+    try {
+      localStorage.setItem('rentals', JSON.stringify(rentals));
+    } catch(err) {}
+    renderRentals();
+    toast('🗑️ পোস্টটি মুছে ফেলা হয়েছে!');
+  }
+}
 
+function shareRental(title) {
+  if (navigator.share) {
+    navigator.share({ title: title, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    toast('📋 লিংক কপি করা হয়েছে!');
+  }
+  }
 /* ---------- Tabs & wiring ---------- */
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t => t.classList.add('hidden'));
