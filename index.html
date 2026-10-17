@@ -309,7 +309,7 @@ $('#locSelect').onchange = () => { renderDir(); renderRentals(); };
 $('#searchInput').oninput = () => { renderDir(); renderRentals(); };
 document.querySelectorAll('.tab').forEach(el => {
   el.addEventListener('click', () => {
-    window.scrollTo({ top: 300, behavior: 'smooth' });
+    document.getElementById('emergency-list')?.scrollIntoView({ behavior: 'smooth' });
   });
 });
 renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
