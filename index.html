@@ -1,31 +1,3 @@
-Skip to content
-basa-khoj
-Repository navigation
-Code
-Issues
-Pull requests
-Actions
-Commit 1a274ee
-mdshamimahsan427-ui
-mdshamimahsan427-ui
-authored
-yesterday
-Verified
-Add files via upload
-main
-1 parent 
-f47dec2
- commit 
-1a274ee
-1 file changed
-
-+314
-Lines changed: 314 additions & 0 deletions
-Search within code
- 
-‎index.html‎
-Original file line number	Diff line number	Diff line change
-@@ -0,0 +1,314 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -42,14 +14,46 @@ Original file line number	Diff line number	Diff line change
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
+
 <!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-30">
   <div class="max-w-5xl mx-auto px-4 py-3 space-y-3">
+<a href="app.html" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition flex items-center gap-1">📱 <span>অ্যাপ ডাউনলোড</span></a>
     <div class="flex items-center justify-between gap-2">
       <h1 class="text-lg sm:text-2xl font-bold text-emerald-700">🏠 বাসা-খোঁজ ও ইমার্জেন্সি</h1>
-      <select id="locSelect" class="border rounded-lg px-2 py-1.5 text-sm bg-white">
-        <option value="">📍 সব এলাকা</option>
-        <option>মিরপুর</option><option>ধানমন্ডি</option><option>উত্তরা</option><option>আজিমপুর</option>
+      <select id="locSelect" class="border rounded-lg p-1.5 text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 outline-none cursor-pointer">
+              <option value="">📍 সব এলাকা</option>
+              <option value="uttara">উত্তরা</option>
+              <option value="mirpur">মিরপুর</option>
+              <option value="dhanmondi">ধানমন্ডি</option>
+              <option value="gulshan">গুলশান</option>
+              <option value="banani">বনানী</option>
+              <option value="mohammadpur">মোহাম্মদপুর</option>
+              <option value="badda">বাড্ডা</option>
+              <option value="baridhara">বারিধারা</option>
+              <option value="moghbazar">মগবাজার</option>
+              <option value="malibagh">মালিবাগ</option>
+              <option value="khilgaon">খিলগাঁও</option>
+              <option value="motijheel">মতিঝিল</option>
+              <option value="paltan">পল্টন</option>
+              <option value="ramna">রমনা</option>
+              <option value="shahbagh">শাহবাগ</option>
+              <option value="tejgaon">তেজগাঁও</option>
+              <option value="farmgate">ফার্মগেট</option>
+              <option value="bashundhara">বসুন্ধরা আ/এ</option>
+              <option value="nikunja">নিকুঞ্জ</option>
+              <option value="kafrul">কাফরুল</option>
+              <option value="cantonment">ক্যান্টনমেন্ট</option>
+              <option value="jatrabari">যাত্রাবাড়ী</option>
+              <option value="sayedabad">সায়েদাবাদ</option>
+              <option value="kadamtali">কদমতলী</option>
+              <option value="keraniganj">কেরানীগঞ্জ</option>
+              <option value="old-dhaka">পুরান ঢাকা (চকবাজার, লালবাগ)</option>
+              <option value="sutrapur">সূত্রাপুর</option>
+              <option value="wari">ওয়ারী</option>
+              <option value="kamrangirchar">কামরাঙ্গীরচর</option>
+              <option value="savar">সাভার</option>
+              <option value="dhamrai">ধামরাই</option>
       </select>
     </div>
     <input id="searchInput" type="search" placeholder="🔍 বাসা বা ইমার্জেন্সি সেবা খুঁজুন..." class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
@@ -60,7 +64,9 @@ Original file line number	Diff line number	Diff line change
     </nav>
   </div>
 </header>
+
 <main class="max-w-5xl mx-auto px-4 py-5">
+
 <!-- TAB 1: EMERGENCY -->
 <section id="tab-emergency" class="tab space-y-5">
   <div class="bg-red-50 border border-red-200 rounded-2xl p-5 text-center space-y-3">
@@ -68,13 +74,16 @@ Original file line number	Diff line number	Diff line change
     <p class="text-sm text-red-700">বিপদে চাপ দিন — আপনার লোকেশনসহ বার্তা পাঠান প্রিয়জনদের কাছে</p>
     <a href="tel:999" class="inline-block bg-red-700 text-white px-6 py-2.5 rounded-xl font-bold">📞 জাতীয় জরুরি সেবা ৯৯৯</a>
   </div>
+
   <div id="catGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+
   <div>
     <h2 id="dirTitle" class="font-bold text-lg mb-2">একটি ক্যাটাগরি বেছে নিন</h2>
     <div id="dirList" class="grid sm:grid-cols-2 gap-3"></div>
     <p class="text-xs text-slate-500 mt-3">⚠️ নমুনা তথ্য: নম্বরগুলো প্রোটোটাইপের জন্য। ব্যবহারের আগে যাচাই করে নিন। জরুরি অবস্থায় ৯৯৯ এ কল করুন।</p>
   </div>
 </section>
+
 <!-- TAB 2: RENTALS -->
 <section id="tab-rentals" class="tab hidden space-y-4">
   <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
@@ -87,6 +96,7 @@ Original file line number	Diff line number	Diff line change
   </div>
   <div id="rentalList" class="grid sm:grid-cols-2 gap-4"></div>
 </section>
+
 <!-- TAB 3: POST -->
 <section id="tab-post" class="tab hidden">
   <form id="postForm" class="bg-white rounded-2xl shadow-sm p-5 space-y-4">
@@ -119,6 +129,7 @@ Original file line number	Diff line number	Diff line change
   </form>
 </section>
 </main>
+
 <!-- MODAL -->
 <div id="modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-3">
   <div class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-5 relative">
@@ -126,7 +137,9 @@ Original file line number	Diff line number	Diff line change
     <div id="modalBody"></div>
   </div>
 </div>
+
 <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-4 py-2 rounded-lg z-[60]"></div>
+
 <script>
 /* ---------- Helpers ---------- */
 const bn = n => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
@@ -138,6 +151,7 @@ function openModal(html){ $('#modalBody').innerHTML = html; $('#modal').classLis
 function closeModal(){ $('#modal').classList.add('hidden'); }
 $('#modalClose').onclick = closeModal;
 $('#modal').onclick = e => { if(e.target.id==='modal') closeModal(); };
+
 /* ---------- Emergency data (নমুনা) ---------- */
 const CATS = [
   {id:'hospital', icon:'🏥', name:'হাসপাতাল ও আইসিইউ'},
@@ -170,6 +184,7 @@ const DIR = [
   {c:'pharmacy', n:'নাইট কেয়ার ফার্মেসি (নমুনা)', a:'উত্তরা সেক্টর ৬', l:'উত্তরা', p:'01400000003'}
 ];
 let curCat = null;
+
 function renderCats(){
   $('#catGrid').innerHTML = CATS.map(c => `
     <button data-cat="${c.id}" class="cat bg-white border rounded-2xl p-4 text-center shadow-sm hover:shadow-md hover:border-emerald-500 transition ${curCat===c.id?'ring-2 ring-emerald-500':''}">
@@ -194,6 +209,7 @@ function renderDir(){
         <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(d.n.replace(' (নমুনা)','')+' '+d.a+' '+d.l)}" class="flex-1 text-center border border-emerald-600 text-emerald-700 rounded-lg py-2 text-sm font-semibold">ম্যাপে দেখুন</a>
       </div></div>`).join('') : '<p class="text-slate-500">কোনো ফলাফল পাওয়া যায়নি।</p>';
 }
+
 /* ---------- SOS ---------- */
 $('#sosBtn').onclick = () => {
   const saved = JSON.parse(localStorage.getItem('sosContacts') || '[]');
@@ -220,6 +236,7 @@ $('#sosBtn').onclick = () => {
     location.href = 'sms:' + nums.join(',') + '?body=' + encodeURIComponent(body);
   };
 };
+
 /* ---------- Rentals ---------- */
 const SEED = [
   {id:1, type:'ফ্ল্যাট', tenant:'ফ্যামিলি', title:'মিরপুর ১০ এ ৩ বেডের বাসা', location:'মিরপুর', rent:18000, phone:'01711000001', feats:['WiFi','গ্যাস','লিফট','নিরাপত্তা'], desc:'৩ বেড, ২ বাথ, খোলামেলা ফ্ল্যাট। ১ম তলা, মেইন রোডের কাছে।', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600'},
@@ -234,6 +251,7 @@ const TYPES = ['সবগুলো','মেস সিট','ফ্ল্যাট
 const TENANTS = ['সবগুলো','ছাত্র','ছাত্রী','ফ্যামিলি'];
 const tenantLabel = {ছাত্র:'ছাত্র/পুরুষ', ছাত্রী:'ছাত্রী/নারী', ফ্যামিলি:'ফ্যামিলি', সবগুলো:'সবগুলো'};
 const typeLabel = {ফ্ল্যাট:'ফ্ল্যাট/বাসা'};
+
 function pills(el, arr, key, labels={}){
   $(el).innerHTML = arr.map(v => `<button data-v="${v}" class="px-3 py-1.5 rounded-full text-sm border ${F[key]===v?'bg-emerald-600 text-white border-emerald-600':'bg-white'}">${labels[v]||v}</button>`).join('');
   $(el).querySelectorAll('button').forEach(b => b.onclick = () => { F[key]=b.dataset.v; renderRentals(); });
@@ -257,7 +275,16 @@ function renderRentals(){
         <span class="absolute top-2 right-2 bg-white/90 text-xs px-2 py-1 rounded-full">${esc(r.tenant)}</span>
       </div>
       <div class="p-4 space-y-2">
-        <h3 class="font-bold">${esc(r.title)}</h3>
+        <div class="flex justify-between items-start">
+      <h3 class="font-bold text-lg">${esc(r.title)}</h3>
+      <div class="relative inline-block text-left">
+        <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="p-1 text-gray-500 hover:text-gray-700 text-xl font-bold focus:outline-none">⋮</button>
+        <div class="hidden absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg border z-10 py-1">
+          <button onclick="shareRental('${esc(r.title)}')" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">🔗 শেয়ার</button>
+          <button onclick="deleteRental(${r.id})" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2 font-medium">🗑️ ডিলিট</button>
+        </div>
+      </div>
+    </div>
         <p class="text-sm text-slate-600">📍 ${esc(r.location)}</p>
         <p class="text-lg font-bold text-emerald-700">${money(r.rent)}</p>
         <div class="flex flex-wrap gap-1">${r.feats.map(f=>`<span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full">✔ ${esc(f)}</span>`).join('')}</div>
@@ -282,6 +309,7 @@ function showDetail(id){
     <p class="text-sm mb-3">📞 ${bn(r.phone)}</p>
     <a href="tel:${esc(r.phone)}" class="block text-center bg-emerald-600 text-white font-bold py-3 rounded-xl">সরাসরি কল দিন</a>`);
 }
+
 /* ---------- Post form ---------- */
 let fileData = '';
 $('#imgFile').onchange = e => {
@@ -306,6 +334,25 @@ $('#postForm').onsubmit = e => {
   toast('✅ পোস্ট সফল হয়েছে!');
   switchTab('rentals');
 };
+function deleteRental(id) {
+  if (confirm('আপনি কি সত্যিই এই পোস্টটি মুছে ফেলতে চান?')) {
+    rentals = rentals.filter(item => item.id !== id);
+    try {
+      localStorage.setItem('rentals', JSON.stringify(rentals));
+    } catch(err) {}
+    renderRentals();
+    toast('🗑️ পোস্টটি মুছে ফেলা হয়েছে!');
+  }
+}
+
+function shareRental(title) {
+  if (navigator.share) {
+    navigator.share({ title: title, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    toast('📋 লিংক কপি করা হয়েছে!');
+  }
+  }
 /* ---------- Tabs & wiring ---------- */
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t => t.classList.add('hidden'));
@@ -318,15 +365,12 @@ document.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => switchTab(b
 $('#priceRange').oninput = renderRentals;
 $('#locSelect').onchange = () => { renderDir(); renderRentals(); };
 $('#searchInput').oninput = () => { renderDir(); renderRentals(); };
-renderCats(); renderDir(); renderRentals(); switchTab('emergency');
+document.querySelectorAll('.tab').forEach(el => {
+  el.addEventListener('click', () => {
+    window.scrollBy({ top: 400, behavior: 'smooth' });
+  });
+});
+renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
 </script>
 </body>
-</html>
-0 commit comments
-Comments
-0
- (0)
-Comment
-You're not receiving notifications from this thread.
-
-There are no files selected for viewing
+ </html>
