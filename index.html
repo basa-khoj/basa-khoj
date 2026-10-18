@@ -311,7 +311,8 @@ document.querySelectorAll('.tab').forEach(el => {
   el.addEventListener('click', () => {
     document.getElementById('emergency-list')?.scrollIntoView({ behavior: 'smooth' });
   });
-});
+ });
+document.getElementById('dirTitle')?.scrollIntoView({ behavior: 'smooth' });
 renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
 </script>
 </body>
