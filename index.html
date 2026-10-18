@@ -18,7 +18,6 @@
 <!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-30">
   <div class="max-w-5xl mx-auto px-4 py-3 space-y-3">
-<a href="app.html" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition flex items-center gap-1">📱 <span>অ্যাপ ডাউনলোড</span></a>
     <div class="flex items-center justify-between gap-2">
       <h1 class="text-lg sm:text-2xl font-bold text-emerald-700">🏠 বাসা-খোঁজ ও ইমার্জেন্সি</h1>
       <select id="locSelect" class="border rounded-lg p-1.5 text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 outline-none cursor-pointer">
@@ -352,7 +351,7 @@ function shareRental(title) {
     navigator.clipboard.writeText(window.location.href);
     toast('📋 লিংক কপি করা হয়েছে!');
   }
-  }
+}
 /* ---------- Tabs & wiring ---------- */
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t => t.classList.add('hidden'));
@@ -373,4 +372,4 @@ document.querySelectorAll('.tab').forEach(el => {
 renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
 </script>
 </body>
- </html>
+  </html>
