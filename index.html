@@ -26,7 +26,7 @@
                 <span class="text-2xl">🏠</span>
                 <h1 class="text-lg font-bold text-emerald-800">বাসা-খোঁজ ও ইমার্জেন্সি</h1>
             </div>
-            <select class="bg-slate-100 text-slate-700 text-xs rounded-lg px-2 py-1.5 border border-slate-300 font-medium outline-none">
+            <select id="areaSelect" class="bg-slate-100 text-slate-700 text-xs rounded-lg px-2 py-1.5 border border-slate-300 font-medium outline-none cursor-pointer">
                 <option value="">📍 সব এলাকা</option>
                 <option value="uttara">উত্তরা</option>
                 <option value="mirpur">মিরপুর</option>
@@ -39,19 +39,19 @@
         <div class="max-w-md mx-auto mb-3">
             <div class="relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
-                <input type="text" placeholder="বাসা বা ইমার্জেন্সি সেবা খুঁজুন..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-sm outline-none focus:border-emerald-600">
+                <input type="text" id="searchInput" placeholder="বাসা বা ইমার্জেন্সি সেবা খুঁজুন..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-sm outline-none focus:border-emerald-600">
             </div>
         </div>
 
         <!-- TABS / NAVIGATION BUTTONS -->
         <div class="max-w-md mx-auto flex gap-2 text-xs font-bold">
-            <button class="flex-1 bg-emerald-700 text-white py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm">
+            <button onclick="switchTab('emergency')" id="tabEmergency" class="flex-1 bg-emerald-700 text-white py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm transition">
                 🚨 ইমার্জেন্সি সেবা
             </button>
-            <button class="flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50">
+            <button onclick="switchTab('basa')" id="tabBasa" class="flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50 transition">
                 🏠 বাসা ও মেস ভাড়া
             </button>
-            <button class="flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50">
+            <button onclick="openModal('পোস্ট করুন', 'নতুন বাসা বা মেস বা সেবার পোস্ট দিতে অ্যাপটি ডাউনলোড করুন।')" class="flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50 transition">
                 ➕ পোস্ট করুন
             </button>
         </div>
@@ -61,7 +61,7 @@
 
         <!-- SOS BANNER -->
         <div class="bg-red-50 border border-red-100 rounded-2xl p-6 text-center shadow-sm mb-5">
-            <div class="w-24 h-24 bg-red-600 text-white font-black text-2xl rounded-full flex flex-col items-center justify-center mx-auto mb-3 shadow-lg border-4 border-red-100 cursor-pointer active:scale-95 transition">
+            <div onclick="openModal('SOS লোকেশন অ্যালার্ট', 'আপনার বর্তমান লোকেশন সংগ্রহ করে জরুরি পরিচিতজনদের কাছে বিপদবার্তা পাঠানোর প্রক্রিয়া শুরু হচ্ছে...')" class="w-24 h-24 bg-red-600 text-white font-black text-2xl rounded-full flex flex-col items-center justify-center mx-auto mb-3 shadow-lg border-4 border-red-100 cursor-pointer active:scale-95 transition">
                 <span class="text-xs tracking-widest opacity-80">SOS</span>
                 <span>SOS</span>
             </div>
@@ -75,39 +75,95 @@
         </div>
 
         <!-- SERVICES GRID -->
-        <div class="grid grid-cols-2 gap-3">
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+        <div id="servicesGrid" class="grid grid-cols-2 gap-3">
+            <div onclick="openModal('হাসপাতাল ও আইসিইউ', 'নিকটস্থ ২৪ ঘণ্টা খোলা হাসপাতাল ও আইসিইউ বেডের তালিকা পেতে এলাকা সিলেক্ট করুন।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🏥</div>
                 <h3 class="font-bold text-xs text-slate-800">হাসপাতাল ও আইসিইউ</h3>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+            <div onclick="openModal('অ্যাম্বুলেন্স সেবা', 'জরूरी অ্যাম্বুলেন্স বুকিং ও হটলাইন নম্বরের জন্য কল করুন: ৯৯৯ বা স্থানীয় নম্বরে।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🚑</div>
                 <h3 class="font-bold text-xs text-slate-800">অ্যাম্বুলেন্স সেবা</h3>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+            <div onclick="openModal('রক্তদাতা ডিরেক্টরি', 'রক্তের গ্রুপ অনুযায়ী ব্লাড ডোনার খুঁজতে এলাকা বেছে নিন।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🩸</div>
                 <h3 class="font-bold text-xs text-slate-800">রক্তদাতা ডিরেক্টরি</h3>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+            <div onclick="openModal('নিকটস্থ থানা', 'আপনার এলাকার নিকটস্থ থানার ডিউটি অফিসারের সরাসরি নম্বর।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🚓</div>
                 <h3 class="font-bold text-xs text-slate-800">নিকটস্থ থানা</h3>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+            <div onclick="openModal('ফায়ার সার্ভিস', 'নিকটস্থ ফায়ার স্টেশন ও অগ্নিনির্বাপক কন্ট্রোল রুমের নম্বর।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🚒</div>
                 <h3 class="font-bold text-xs text-slate-800">ফায়ার সার্ভিস</h3>
             </div>
 
-            <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow transition">
+            <div onclick="openModal('অ্যান্টিভেনম ও বিশেষ সেবা', 'সাপের কামড় বা অন্যান্য বিষাক্ত এমার্জেন্সির জন্য অ্যান্টিভেনম প্রাপ্ত হাসপাতাল।')" class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-center cursor-pointer hover:shadow hover:border-emerald-300 transition active:scale-95">
                 <div class="text-3xl mb-2">🐍</div>
                 <h3 class="font-bold text-xs text-slate-800">অ্যান্টিভেনম ও বিশেষ সেবা</h3>
             </div>
         </div>
 
+        <!-- BASA RENT SECTION (HIDDEN INITIALLY) -->
+        <div id="basaSection" class="hidden space-y-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">ফ্যামিলি বাসা</span>
+                <h4 class="font-bold text-sm mt-1">৩ রুমের ফ্ল্যাট বাসা ভাড়া (উত্তরা সেক্টর ৭)</h4>
+                <p class="text-xs text-slate-500 mt-01">ভাড়া: ২২,০০০ টাকা • গ্যাস ও বিদ্যুৎ আলাদা</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">ব্যাচেলর / মেস</span>
+                <h4 class="font-bold text-sm mt-1">ছাত্রদের জন্য ১টি মেস সিট খালি (মিরপুর ১০)</h4>
+                <p class="text-xs text-slate-500 mt-01">ভাড়া: ৪,৫০০ টাকা (সব বিল অন্তর্ভুক্ত)</p>
+            </div>
+        </div>
+
     </div>
 
+    <!-- MODAL POPUP -->
+    <div id="serviceModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+            <h3 id="modalTitle" class="text-lg font-bold text-slate-800 mb-2"></h3>
+            <p id="modalDesc" class="text-xs text-slate-600 mb-5 leading-relaxed"></p>
+            <button onclick="closeModal()" class="w-full bg-emerald-700 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-800 transition text-xs">বুঝেছি / বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('serviceModal').classList.remove('hidden');
+            document.getElementById('serviceModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('serviceModal').classList.add('hidden');
+            document.getElementById('serviceModal').classList.remove('flex');
+        }
+
+        function switchTab(tab) {
+            const emergencyGrid = document.getElementById('servicesGrid');
+            const basaSec = document.getElementById('basaSection');
+            const tabEm = document.getElementById('tabEmergency');
+            const tabBs = document.getElementById('tabBasa');
+
+            if(tab === 'emergency') {
+                emergencyGrid.classList.remove('hidden');
+                basaSec.classList.add('hidden');
+                tabEm.className = "flex-1 bg-emerald-700 text-white py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm transition";
+                tabBs.className = "flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50 transition";
+            } else {
+                emergencyGrid.classList.add('hidden');
+                basaSec.classList.remove('hidden');
+                tabBs.className = "flex-1 bg-emerald-700 text-white py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm transition";
+                tabEm.className = "flex-1 bg-white border border-slate-200 text-slate-700 py-2 px-2 rounded-lg flex items-center justify-center gap-1 shadow-sm hover:bg-slate-50 transition";
+            }
+        }
+    </script>
 </body>
 </html>
