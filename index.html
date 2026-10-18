@@ -1,3 +1,31 @@
+Skip to content
+basa-khoj
+Repository navigation
+Code
+Issues
+Pull requests
+Actions
+Commit 1a274ee
+mdshamimahsan427-ui
+mdshamimahsan427-ui
+authored
+yesterday
+Verified
+Add files via upload
+main
+1 parent 
+f47dec2
+ commit 
+1a274ee
+1 file changed
+
++314
+Lines changed: 314 additions & 0 deletions
+Search within code
+ 
+‎index.html‎
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,314 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -14,7 +42,6 @@
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
-
 <!-- HEADER -->
 <header class="bg-white shadow sticky top-0 z-30">
   <div class="max-w-5xl mx-auto px-4 py-3 space-y-3">
@@ -33,9 +60,7 @@
     </nav>
   </div>
 </header>
-
 <main class="max-w-5xl mx-auto px-4 py-5">
-
 <!-- TAB 1: EMERGENCY -->
 <section id="tab-emergency" class="tab space-y-5">
   <div class="bg-red-50 border border-red-200 rounded-2xl p-5 text-center space-y-3">
@@ -43,16 +68,13 @@
     <p class="text-sm text-red-700">বিপদে চাপ দিন — আপনার লোকেশনসহ বার্তা পাঠান প্রিয়জনদের কাছে</p>
     <a href="tel:999" class="inline-block bg-red-700 text-white px-6 py-2.5 rounded-xl font-bold">📞 জাতীয় জরুরি সেবা ৯৯৯</a>
   </div>
-
   <div id="catGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
-
   <div>
     <h2 id="dirTitle" class="font-bold text-lg mb-2">একটি ক্যাটাগরি বেছে নিন</h2>
     <div id="dirList" class="grid sm:grid-cols-2 gap-3"></div>
     <p class="text-xs text-slate-500 mt-3">⚠️ নমুনা তথ্য: নম্বরগুলো প্রোটোটাইপের জন্য। ব্যবহারের আগে যাচাই করে নিন। জরুরি অবস্থায় ৯৯৯ এ কল করুন।</p>
   </div>
 </section>
-
 <!-- TAB 2: RENTALS -->
 <section id="tab-rentals" class="tab hidden space-y-4">
   <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
@@ -65,7 +87,6 @@
   </div>
   <div id="rentalList" class="grid sm:grid-cols-2 gap-4"></div>
 </section>
-
 <!-- TAB 3: POST -->
 <section id="tab-post" class="tab hidden">
   <form id="postForm" class="bg-white rounded-2xl shadow-sm p-5 space-y-4">
@@ -98,7 +119,6 @@
   </form>
 </section>
 </main>
-
 <!-- MODAL -->
 <div id="modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-3">
   <div class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-5 relative">
@@ -106,9 +126,7 @@
     <div id="modalBody"></div>
   </div>
 </div>
-
 <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-4 py-2 rounded-lg z-[60]"></div>
-
 <script>
 /* ---------- Helpers ---------- */
 const bn = n => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
@@ -120,7 +138,6 @@ function openModal(html){ $('#modalBody').innerHTML = html; $('#modal').classLis
 function closeModal(){ $('#modal').classList.add('hidden'); }
 $('#modalClose').onclick = closeModal;
 $('#modal').onclick = e => { if(e.target.id==='modal') closeModal(); };
-
 /* ---------- Emergency data (নমুনা) ---------- */
 const CATS = [
   {id:'hospital', icon:'🏥', name:'হাসপাতাল ও আইসিইউ'},
@@ -153,7 +170,6 @@ const DIR = [
   {c:'pharmacy', n:'নাইট কেয়ার ফার্মেসি (নমুনা)', a:'উত্তরা সেক্টর ৬', l:'উত্তরা', p:'01400000003'}
 ];
 let curCat = null;
-
 function renderCats(){
   $('#catGrid').innerHTML = CATS.map(c => `
     <button data-cat="${c.id}" class="cat bg-white border rounded-2xl p-4 text-center shadow-sm hover:shadow-md hover:border-emerald-500 transition ${curCat===c.id?'ring-2 ring-emerald-500':''}">
@@ -178,7 +194,6 @@ function renderDir(){
         <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(d.n.replace(' (নমুনা)','')+' '+d.a+' '+d.l)}" class="flex-1 text-center border border-emerald-600 text-emerald-700 rounded-lg py-2 text-sm font-semibold">ম্যাপে দেখুন</a>
       </div></div>`).join('') : '<p class="text-slate-500">কোনো ফলাফল পাওয়া যায়নি।</p>';
 }
-
 /* ---------- SOS ---------- */
 $('#sosBtn').onclick = () => {
   const saved = JSON.parse(localStorage.getItem('sosContacts') || '[]');
@@ -205,7 +220,6 @@ $('#sosBtn').onclick = () => {
     location.href = 'sms:' + nums.join(',') + '?body=' + encodeURIComponent(body);
   };
 };
-
 /* ---------- Rentals ---------- */
 const SEED = [
   {id:1, type:'ফ্ল্যাট', tenant:'ফ্যামিলি', title:'মিরপুর ১০ এ ৩ বেডের বাসা', location:'মিরপুর', rent:18000, phone:'01711000001', feats:['WiFi','গ্যাস','লিফট','নিরাপত্তা'], desc:'৩ বেড, ২ বাথ, খোলামেলা ফ্ল্যাট। ১ম তলা, মেইন রোডের কাছে।', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600'},
@@ -220,7 +234,6 @@ const TYPES = ['সবগুলো','মেস সিট','ফ্ল্যাট
 const TENANTS = ['সবগুলো','ছাত্র','ছাত্রী','ফ্যামিলি'];
 const tenantLabel = {ছাত্র:'ছাত্র/পুরুষ', ছাত্রী:'ছাত্রী/নারী', ফ্যামিলি:'ফ্যামিলি', সবগুলো:'সবগুলো'};
 const typeLabel = {ফ্ল্যাট:'ফ্ল্যাট/বাসা'};
-
 function pills(el, arr, key, labels={}){
   $(el).innerHTML = arr.map(v => `<button data-v="${v}" class="px-3 py-1.5 rounded-full text-sm border ${F[key]===v?'bg-emerald-600 text-white border-emerald-600':'bg-white'}">${labels[v]||v}</button>`).join('');
   $(el).querySelectorAll('button').forEach(b => b.onclick = () => { F[key]=b.dataset.v; renderRentals(); });
@@ -269,7 +282,6 @@ function showDetail(id){
     <p class="text-sm mb-3">📞 ${bn(r.phone)}</p>
     <a href="tel:${esc(r.phone)}" class="block text-center bg-emerald-600 text-white font-bold py-3 rounded-xl">সরাসরি কল দিন</a>`);
 }
-
 /* ---------- Post form ---------- */
 let fileData = '';
 $('#imgFile').onchange = e => {
@@ -294,7 +306,6 @@ $('#postForm').onsubmit = e => {
   toast('✅ পোস্ট সফল হয়েছে!');
   switchTab('rentals');
 };
-
 /* ---------- Tabs & wiring ---------- */
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t => t.classList.add('hidden'));
@@ -307,55 +318,15 @@ document.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => switchTab(b
 $('#priceRange').oninput = renderRentals;
 $('#locSelect').onchange = () => { renderDir(); renderRentals(); };
 $('#searchInput').oninput = () => { renderDir(); renderRentals(); };
-document.querySelectorAll('.tab').forEach(el => {
-  el.addEventListener('click', () => {
-    document.getElementById('emergency-list')?.scrollIntoView({ behavior: 'smooth' });
-  });
- });
-window.renderDir = (catKey = currentCat) => {
-    currentCat = catKey;
-    const items = (EMERGENCY_DATA[catKey] || []).filter(item => {
-        const q = ($('#searchInput').value || '').trim().toLowerCase();
-        const loc = $('#locSelect').value;
-        const matchQ = !q || item.title.toLowerCase().includes(q) || item.loc.toLowerCase().includes(q);
-        const matchL = !loc || item.loc.toLowerCase().includes(loc.toLowerCase());
-        return matchQ && matchL;
-    });
-
-    $('#dirTitle').innerHTML = `
-        <div class="flex items-center justify-between bg-emerald-700 text-white p-3 rounded-xl mb-3 shadow">
-            <span class="font-bold text-sm">${CAT_NAMES[catKey] || ''} (${items.length})</span>
-            <button onclick="document.getElementById('catGrid').classList.remove('hidden'); document.getElementById('dirList').classList.add('hidden');" class="bg-white text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-bold">
-                ⬅ পিছনে যান
-            </button>
-        </div>
-    `;
-    
-    document.getElementById('catGrid')?.classList.add('hidden');
-    document.getElementById('dirList')?.classList.remove('hidden');
-
-    if (items.length === 0) {
-        $('#dirList').innerHTML = `<p class="text-center text-slate-500 py-10 text-sm bg-white rounded-xl border border-slate-200">কোনো তথ্য পাওয়া যায়নি</p>`;
-    } else {
-        $('#dirList').innerHTML = items.map(item => `
-            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-3">
-                <h3 class="font-bold text-slate-800 text-sm sm:text-base mb-1">${item.title}</h3>
-                <p class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i>${item.loc}</p>
-                <div class="flex gap-2">
-                    <a href="tel:${item.phone}" class="flex-1 bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg text-center flex items-center justify-center gap-1">
-                        <i class="fa-solid fa-phone"></i> কল করুন
-                    </a>
-                    <a href="https://maps.google.com/?q=${encodeURIComponent(item.title + ' ' + item.loc)}" target="_blank" class="flex-1 border border-emerald-600 text-emerald-700 text-xs font-bold py-2.5 rounded-lg text-center flex items-center justify-center gap-1">
-                        ম্যাপে দেখুন
-                    </a>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-};  
-renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
+renderCats(); renderDir(); renderRentals(); switchTab('emergency');
 </script>
 </body>
-       </html>
+</html>
+0 commit comments
+Comments
+0
+ (0)
+Comment
+You're not receiving notifications from this thread.
+
+There are no files selected for viewing
