@@ -312,7 +312,49 @@ document.querySelectorAll('.tab').forEach(el => {
     document.getElementById('emergency-list')?.scrollIntoView({ behavior: 'smooth' });
   });
  });
-document.getElementById('dirTitle')?.scrollIntoView({ behavior: 'smooth' });
+window.renderDir = (catKey = currentCat) => {
+    currentCat = catKey;
+    const items = (EMERGENCY_DATA[catKey] || []).filter(item => {
+        const q = ($('#searchInput').value || '').trim().toLowerCase();
+        const loc = $('#locSelect').value;
+        const matchQ = !q || item.title.toLowerCase().includes(q) || item.loc.toLowerCase().includes(q);
+        const matchL = !loc || item.loc.toLowerCase().includes(loc.toLowerCase());
+        return matchQ && matchL;
+    });
+
+    $('#dirTitle').innerHTML = `
+        <div class="flex items-center justify-between bg-emerald-700 text-white p-3 rounded-xl mb-3 shadow">
+            <span class="font-bold text-sm">${CAT_NAMES[catKey] || ''} (${items.length})</span>
+            <button onclick="document.getElementById('catGrid').classList.remove('hidden'); document.getElementById('dirList').classList.add('hidden');" class="bg-white text-emerald-800 text-xs px-2.5 py-1 rounded-lg font-bold">
+                ⬅ পিছনে যান
+            </button>
+        </div>
+    `;
+    
+    document.getElementById('catGrid')?.classList.add('hidden');
+    document.getElementById('dirList')?.classList.remove('hidden');
+
+    if (items.length === 0) {
+        $('#dirList').innerHTML = `<p class="text-center text-slate-500 py-10 text-sm bg-white rounded-xl border border-slate-200">কোনো তথ্য পাওয়া যায়নি</p>`;
+    } else {
+        $('#dirList').innerHTML = items.map(item => `
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-3">
+                <h3 class="font-bold text-slate-800 text-sm sm:text-base mb-1">${item.title}</h3>
+                <p class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i>${item.loc}</p>
+                <div class="flex gap-2">
+                    <a href="tel:${item.phone}" class="flex-1 bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg text-center flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-phone"></i> কল করুন
+                    </a>
+                    <a href="https://maps.google.com/?q=${encodeURIComponent(item.title + ' ' + item.loc)}" target="_blank" class="flex-1 border border-emerald-600 text-emerald-700 text-xs font-bold py-2.5 rounded-lg text-center flex items-center justify-center gap-1">
+                        ম্যাপে দেখুন
+                    </a>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};  
 renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
 </script>
 </body>
