@@ -1,376 +1,94 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>বাসা-খোঁজ ও ইমার্জেন্সি</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  body { font-family: 'Hind Siliguri', sans-serif; }
-  .tab-active { background:#059669; color:#fff; }
-  .pulse-sos { animation: pulse 1.8s infinite; }
-  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(220,38,38,.6)} 70%{box-shadow:0 0 0 18px rgba(220,38,38,0)} 100%{box-shadow:0 0 0 0 rgba(220,38,38,0)} }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basa-Khoj App - ফ্রি অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করুন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="bg-slate-50 text-slate-800 font-sans">
 
-<!-- HEADER -->
-<header class="bg-white shadow sticky top-0 z-30">
-  <div class="max-w-5xl mx-auto px-4 py-3 space-y-3">
-<a href="app.html" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition flex items-center gap-1">📱 <span>অ্যাপ ডাউনলোড</span></a>
-    <div class="flex items-center justify-between gap-2">
-      <h1 class="text-lg sm:text-2xl font-bold text-emerald-700">🏠 বাসা-খোঁজ ও ইমার্জেন্সি</h1>
-      <select id="locSelect" class="border rounded-lg p-1.5 text-xs sm:text-sm font-medium text-slate-700 bg-slate-100 outline-none cursor-pointer">
-              <option value="">📍 সব এলাকা</option>
-              <option value="uttara">উত্তরা</option>
-              <option value="mirpur">মিরপুর</option>
-              <option value="dhanmondi">ধানমন্ডি</option>
-              <option value="gulshan">গুলশান</option>
-              <option value="banani">বনানী</option>
-              <option value="mohammadpur">মোহাম্মদপুর</option>
-              <option value="badda">বাড্ডা</option>
-              <option value="baridhara">বারিধারা</option>
-              <option value="moghbazar">মগবাজার</option>
-              <option value="malibagh">মালিবাগ</option>
-              <option value="khilgaon">খিলগাঁও</option>
-              <option value="motijheel">মতিঝিল</option>
-              <option value="paltan">পল্টন</option>
-              <option value="ramna">রমনা</option>
-              <option value="shahbagh">শাহবাগ</option>
-              <option value="tejgaon">তেজগাঁও</option>
-              <option value="farmgate">ফার্মগেট</option>
-              <option value="bashundhara">বসুন্ধরা আ/এ</option>
-              <option value="nikunja">নিকুঞ্জ</option>
-              <option value="kafrul">কাফরুল</option>
-              <option value="cantonment">ক্যান্টনমেন্ট</option>
-              <option value="jatrabari">যাত্রাবাড়ী</option>
-              <option value="sayedabad">সায়েদাবাদ</option>
-              <option value="kadamtali">কদমতলী</option>
-              <option value="keraniganj">কেরানীগঞ্জ</option>
-              <option value="old-dhaka">পুরান ঢাকা (চকবাজার, লালবাগ)</option>
-              <option value="sutrapur">সূত্রাপুর</option>
-              <option value="wari">ওয়ারী</option>
-              <option value="kamrangirchar">কামরাঙ্গীরচর</option>
-              <option value="savar">সাভার</option>
-              <option value="dhamrai">ধামরাই</option>
-      </select>
-    </div>
-    <input id="searchInput" type="search" placeholder="🔍 বাসা বা ইমার্জেন্সি সেবা খুঁজুন..." class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-    <nav class="grid grid-cols-3 gap-2 text-xs sm:text-sm font-semibold">
-      <button data-tab="emergency" class="tab-btn rounded-lg py-2 border">🚨 ইমার্জেন্সি সেবা</button>
-      <button data-tab="rentals" class="tab-btn rounded-lg py-2 border">🏠 বাসা ও মেস ভাড়া</button>
-      <button data-tab="post" class="tab-btn rounded-lg py-2 border">➕ পোস্ট করুন</button>
-    </nav>
-  </div>
-</header>
-
-<main class="max-w-5xl mx-auto px-4 py-5">
-
-<!-- TAB 1: EMERGENCY -->
-<section id="tab-emergency" class="tab space-y-5">
-  <div class="bg-red-50 border border-red-200 rounded-2xl p-5 text-center space-y-3">
-    <button id="sosBtn" class="pulse-sos bg-red-600 hover:bg-red-700 text-white rounded-full w-32 h-32 text-2xl font-bold mx-auto block">🆘 SOS</button>
-    <p class="text-sm text-red-700">বিপদে চাপ দিন — আপনার লোকেশনসহ বার্তা পাঠান প্রিয়জনদের কাছে</p>
-    <a href="tel:999" class="inline-block bg-red-700 text-white px-6 py-2.5 rounded-xl font-bold">📞 জাতীয় জরুরি সেবা ৯৯৯</a>
-  </div>
-
-  <div id="catGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
-
-  <div>
-    <h2 id="dirTitle" class="font-bold text-lg mb-2">একটি ক্যাটাগরি বেছে নিন</h2>
-    <div id="dirList" class="grid sm:grid-cols-2 gap-3"></div>
-    <p class="text-xs text-slate-500 mt-3">⚠️ নমুনা তথ্য: নম্বরগুলো প্রোটোটাইপের জন্য। ব্যবহারের আগে যাচাই করে নিন। জরুরি অবস্থায় ৯৯৯ এ কল করুন।</p>
-  </div>
-</section>
-
-<!-- TAB 2: RENTALS -->
-<section id="tab-rentals" class="tab hidden space-y-4">
-  <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
-    <div id="typeFilters" class="flex flex-wrap gap-2"></div>
-    <div id="tenantFilters" class="flex flex-wrap gap-2"></div>
-    <div>
-      <label class="text-sm font-semibold">সর্বোচ্চ ভাড়া: <span id="priceLabel" class="text-emerald-700"></span></label>
-      <input id="priceRange" type="range" min="1000" max="50000" step="500" value="50000" class="w-full accent-emerald-600">
-    </div>
-  </div>
-  <div id="rentalList" class="grid sm:grid-cols-2 gap-4"></div>
-</section>
-
-<!-- TAB 3: POST -->
-<section id="tab-post" class="tab hidden">
-  <form id="postForm" class="bg-white rounded-2xl shadow-sm p-5 space-y-4">
-    <h2 class="font-bold text-lg">নতুন লিস্টিং যোগ করুন</h2>
-    <div class="grid sm:grid-cols-2 gap-4">
-      <label class="block text-sm font-semibold">লিস্টিং টাইপ
-        <select name="type" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal"><option>মেস সিট</option><option>ফ্ল্যাট</option><option>সাবলেট</option></select></label>
-      <label class="block text-sm font-semibold">কার জন্য প্রযোজ্য
-        <select name="tenant" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal"><option>ছাত্র</option><option>ছাত্রী</option><option>ফ্যামিলি</option></select></label>
-    </div>
-    <label class="block text-sm font-semibold">শিরোনাম
-      <input name="title" required class="mt-1 w-full border rounded-lg px-3 py-2 font-normal" placeholder="যেমন: মিরপুর ১০ এ ২ বেডের বাসা"></label>
-    <div class="grid sm:grid-cols-2 gap-4">
-      <label class="block text-sm font-semibold">লোকেশন
-        <select name="location" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal"><option>মিরপুর</option><option>ধানমন্ডি</option><option>উত্তরা</option><option>আজিমপুর</option></select></label>
-      <label class="block text-sm font-semibold">মাসিক ভাড়া (টাকা)
-        <input name="rent" type="number" min="0" required class="mt-1 w-full border rounded-lg px-3 py-2 font-normal" placeholder="৫০০০"></label>
-    </div>
-    <label class="block text-sm font-semibold">মোবাইল নম্বর
-      <input name="phone" type="tel" required pattern="01[0-9]{9}" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal" placeholder="01XXXXXXXXX"></label>
-    <label class="block text-sm font-semibold">বিবরণ ও সুবিধাসমূহ (কমা দিয়ে লিখুন)
-      <textarea name="desc" rows="3" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal" placeholder="WiFi, গ্যাস, অ্যাটাচড বাথ, ডাইনিং"></textarea></label>
-    <div class="grid sm:grid-cols-2 gap-4">
-      <label class="block text-sm font-semibold">ছবির লিংক
-        <input name="imgUrl" type="url" class="mt-1 w-full border rounded-lg px-3 py-2 font-normal" placeholder="https://..."></label>
-      <label class="block text-sm font-semibold">অথবা ছবির ফাইল
-        <input id="imgFile" type="file" accept="image/*" class="mt-1 w-full text-sm font-normal"></label>
-    </div>
-    <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl">✅ পোস্ট করুন</button>
-  </form>
-</section>
-</main>
-
-<!-- MODAL -->
-<div id="modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center p-3">
-  <div class="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-5 relative">
-    <button id="modalClose" class="absolute top-3 right-4 text-2xl text-slate-500">✕</button>
-    <div id="modalBody"></div>
-  </div>
-</div>
-
-<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-sm px-4 py-2 rounded-lg z-[60]"></div>
-
-<script>
-/* ---------- Helpers ---------- */
-const bn = n => String(n).replace(/\d/g, d => '০১২৩৪৫৬৭৮৯'[d]);
-const money = n => '৳' + bn(Number(n).toLocaleString('en-IN')) + '/মাস';
-const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'),2500); }
-function openModal(html){ $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); }
-function closeModal(){ $('#modal').classList.add('hidden'); }
-$('#modalClose').onclick = closeModal;
-$('#modal').onclick = e => { if(e.target.id==='modal') closeModal(); };
-
-/* ---------- Emergency data (নমুনা) ---------- */
-const CATS = [
-  {id:'hospital', icon:'🏥', name:'হাসপাতাল ও আইসিইউ'},
-  {id:'ambulance', icon:'🚑', name:'অ্যাম্বুলেন্স সেবা'},
-  {id:'blood', icon:'🩸', name:'রক্তদাতা ডিরেক্টরি'},
-  {id:'police', icon:'🚔', name:'নিকটস্থ থানা'},
-  {id:'fire', icon:'🚒', name:'ফায়ার সার্ভিস'},
-  {id:'pharmacy', icon:'🐍', name:'অ্যান্টিভেনম ও বিশেষ ফার্মেসি'}
-];
-const DIR = [
-  {c:'hospital', n:'মিরপুর জেনারেল হাসপাতাল (নমুনা)', a:'মিরপুর ১০', l:'মিরপুর', p:'01700000001'},
-  {c:'hospital', n:'ধানমন্ডি কেয়ার হাসপাতাল (নমুনা)', a:'ধানমন্ডি ৮', l:'ধানমন্ডি', p:'01700000002'},
-  {c:'hospital', n:'উত্তরা মেডিকেল সেন্টার (নমুনা)', a:'উত্তরা সেক্টর ৭', l:'উত্তরা', p:'01700000003'},
-  {c:'hospital', n:'আজিমপুর হেলথ ক্লিনিক (নমুনা)', a:'আজিমপুর রোড', l:'আজিমপুর', p:'01700000004'},
-  {c:'ambulance', n:'দ্রুত অ্যাম্বুলেন্স সার্ভিস (নমুনা)', a:'মিরপুর ১১', l:'মিরপুর', p:'01800000001'},
-  {c:'ambulance', n:'লাইফলাইন অ্যাম্বুলেন্স (নমুনা)', a:'ধানমন্ডি ২৭', l:'ধানমন্ডি', p:'01800000002'},
-  {c:'ambulance', n:'সেবা অ্যাম্বুলেন্স (নমুনা)', a:'উত্তরা সেক্টর ১২', l:'উত্তরা', p:'01800000003'},
-  {c:'blood', n:'রক্তদাতা — এ+ (নমুনা)', a:'মিরপুর ২', l:'মিরপুর', p:'01900000001'},
-  {c:'blood', n:'রক্তদাতা — ও+ (নমুনা)', a:'ধানমন্ডি ৫', l:'ধানমন্ডি', p:'01900000002'},
-  {c:'blood', n:'রক্তদাতা — বি+ (নমুনা)', a:'উত্তরা সেক্টর ৩', l:'উত্তরা', p:'01900000003'},
-  {c:'blood', n:'রক্তদাতা — এবি+ (নমুনা)', a:'আজিমপুর কলোনি', l:'আজিমপুর', p:'01900000004'},
-  {c:'police', n:'মিরপুর মডেল থানা (নমুনা)', a:'মিরপুর ১', l:'মিরপুর', p:'01600000001'},
-  {c:'police', n:'ধানমন্ডি থানা (নমুনা)', a:'ধানমন্ডি ৩/এ', l:'ধানমন্ডি', p:'01600000002'},
-  {c:'police', n:'উত্তরা পশ্চিম থানা (নমুনা)', a:'উত্তরা সেক্টর ১৩', l:'উত্তরা', p:'01600000003'},
-  {c:'fire', n:'মিরপুর ফায়ার স্টেশন (নমুনা)', a:'মিরপুর ১২', l:'মিরপুর', p:'01500000001'},
-  {c:'fire', n:'ধানমন্ডি ফায়ার স্টেশন (নমুনা)', a:'ধানমন্ডি ১৫', l:'ধানমন্ডি', p:'01500000002'},
-  {c:'fire', n:'উত্তরা ফায়ার স্টেশন (নমুনা)', a:'উত্তরা সেক্টর ৯', l:'উত্তরা', p:'01500000003'},
-  {c:'pharmacy', n:'২৪/৭ লাইফ ফার্মেসি (নমুনা)', a:'আজিমপুর মার্কেট', l:'আজিমপুর', p:'01400000001'},
-  {c:'pharmacy', n:'অ্যান্টিভেনম পয়েন্ট (নমুনা)', a:'মিরপুর ১৪', l:'মিরপুর', p:'01400000002'},
-  {c:'pharmacy', n:'নাইট কেয়ার ফার্মেসি (নমুনা)', a:'উত্তরা সেক্টর ৬', l:'উত্তরা', p:'01400000003'}
-];
-let curCat = null;
-
-function renderCats(){
-  $('#catGrid').innerHTML = CATS.map(c => `
-    <button data-cat="${c.id}" class="cat bg-white border rounded-2xl p-4 text-center shadow-sm hover:shadow-md hover:border-emerald-500 transition ${curCat===c.id?'ring-2 ring-emerald-500':''}">
-      <div class="text-3xl">${c.icon}</div><div class="text-sm font-semibold mt-1">${c.name}</div></button>`).join('');
-  document.querySelectorAll('.cat').forEach(b => b.onclick = () => { curCat = b.dataset.cat; renderCats(); renderDir(); });
-}
-function renderDir(){
-  const q = $('#searchInput').value.trim().toLowerCase();
-  const loc = $('#locSelect').value;
-  let list = DIR.filter(d => (!curCat || d.c===curCat) && (!loc || d.l===loc) &&
-    (!q || (d.n+d.a+d.l).toLowerCase().includes(q)));
-  if(!curCat && !q){ $('#dirList').innerHTML=''; $('#dirTitle').textContent='একটি ক্যাটাগরি বেছে নিন'; return; }
-  const cat = CATS.find(c=>c.id===curCat);
-  $('#dirTitle').textContent = (cat? cat.icon+' '+cat.name : '🔍 সার্চ ফলাফল') + ' (' + bn(list.length) + ')';
-  $('#dirList').innerHTML = list.length ? list.map(d => `
-    <div class="bg-white rounded-2xl shadow-sm p-4 space-y-2">
-      <h3 class="font-bold">${esc(d.n)}</h3>
-      <p class="text-sm text-slate-600">📍 ${esc(d.a)}, ${esc(d.l)}</p>
-      <p class="text-sm">📞 ${bn(d.p)}</p>
-      <div class="flex gap-2">
-        <a href="tel:${d.p}" class="flex-1 text-center bg-emerald-600 text-white rounded-lg py-2 text-sm font-semibold">কল করুন</a>
-        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent(d.n.replace(' (নমুনা)','')+' '+d.a+' '+d.l)}" class="flex-1 text-center border border-emerald-600 text-emerald-700 rounded-lg py-2 text-sm font-semibold">ম্যাপে দেখুন</a>
-      </div></div>`).join('') : '<p class="text-slate-500">কোনো ফলাফল পাওয়া যায়নি।</p>';
-}
-
-/* ---------- SOS ---------- */
-$('#sosBtn').onclick = () => {
-  const saved = JSON.parse(localStorage.getItem('sosContacts') || '[]');
-  openModal(`
-    <h2 class="text-xl font-bold text-red-600 mb-2">🆘 জরুরি SOS বার্তা</h2>
-    <p class="text-sm text-slate-600 mb-3">প্রিয়জনদের নম্বর দিন (কমা দিয়ে আলাদা করুন)। বার্তায় আপনার GPS লোকেশন যুক্ত হবে।</p>
-    <input id="sosNums" value="${esc(saved.join(','))}" class="w-full border rounded-lg px-3 py-2 mb-3" placeholder="01XXXXXXXXX, 01XXXXXXXXX">
-    <textarea id="sosMsg" rows="3" class="w-full border rounded-lg px-3 py-2 mb-2">আমি বিপদে আছি! দয়া করে এখনই সাহায্য করুন।</textarea>
-    <p id="sosLoc" class="text-xs text-slate-500 mb-3">📡 লোকেশন নেওয়া হচ্ছে...</p>
-    <button id="sosSend" class="w-full bg-red-600 text-white font-bold py-3 rounded-xl mb-2">📩 SMS পাঠান</button>
-    <a href="tel:999" class="block text-center bg-red-100 text-red-700 font-bold py-3 rounded-xl">📞 ৯৯৯ এ কল করুন</a>`);
-  let mapLink = '';
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(p => {
-      mapLink = `https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;
-      $('#sosLoc').textContent = '✅ লোকেশন পাওয়া গেছে';
-    }, () => { $('#sosLoc').textContent = '⚠️ লোকেশন পাওয়া যায়নি (অনুমতি দিন)'; }, {enableHighAccuracy:true, timeout:10000});
-  } else $('#sosLoc').textContent = '⚠️ এই ডিভাইসে লোকেশন সাপোর্ট নেই';
-  $('#sosSend').onclick = () => {
-    const nums = $('#sosNums').value.split(',').map(s=>s.trim()).filter(Boolean);
-    if(!nums.length){ toast('অন্তত একটি নম্বর দিন'); return; }
-    localStorage.setItem('sosContacts', JSON.stringify(nums));
-    const body = $('#sosMsg').value + (mapLink ? '\nআমার লোকেশন: ' + mapLink : '');
-    location.href = 'sms:' + nums.join(',') + '?body=' + encodeURIComponent(body);
-  };
-};
-
-/* ---------- Rentals ---------- */
-const SEED = [
-  {id:1, type:'ফ্ল্যাট', tenant:'ফ্যামিলি', title:'মিরপুর ১০ এ ৩ বেডের বাসা', location:'মিরপুর', rent:18000, phone:'01711000001', feats:['WiFi','গ্যাস','লিফট','নিরাপত্তা'], desc:'৩ বেড, ২ বাথ, খোলামেলা ফ্ল্যাট। ১ম তলা, মেইন রোডের কাছে।', img:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600'},
-  {id:2, type:'মেস সিট', tenant:'ছাত্র', title:'ধানমন্ডি ১৫ তে ১ সিট খালি', location:'ধানমন্ডি', rent:3500, phone:'01711000002', feats:['WiFi','গ্যাস','ডাইনিং'], desc:'ছাত্রদের জন্য ২ জনের রুমে ১টি সিট খালি। খাবারের ব্যবস্থা আছে।', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600'},
-  {id:3, type:'মেস সিট', tenant:'ছাত্রী', title:'আজিমপুরে ছাত্রী মেসে সিট', location:'আজিমপুর', rent:4000, phone:'01711000003', feats:['WiFi','অ্যাটাচড বাথ','ডাইনিং'], desc:'নিরাপদ পরিবেশ, সিসিটিভি সহ। ইউনিভার্সিটির কাছে।', img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600'},
-  {id:4, type:'সাবলেট', tenant:'ছাত্র', title:'উত্তরা সেক্টর ৭ এ সাবলেট রুম', location:'উত্তরা', rent:6000, phone:'01711000004', feats:['WiFi','গ্যাস','অ্যাটাচড বাথ'], desc:'ফ্ল্যাটের একটি রুম সাবলেট দেওয়া হবে। বাথরুম অ্যাটাচড।', img:'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600'},
-  {id:5, type:'ফ্ল্যাট', tenant:'ফ্যামিলি', title:'ধানমন্ডি ২৭ এ ২ বেডের ফ্ল্যাট', location:'ধানমন্ডি', rent:25000, phone:'01711000005', feats:['গ্যাস','লিফট','জেনারেটর'], desc:'২ বেড, ১ ড্রয়িং, ১ ডাইনিং। পরিবারের জন্য আদর্শ।', img:'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600'}
-];
-let rentals = JSON.parse(localStorage.getItem('rentals') || 'null') || SEED;
-const F = {type:'সবগুলো', tenant:'সবগুলো'};
-const TYPES = ['সবগুলো','মেস সিট','ফ্ল্যাট','সাবলেট'];
-const TENANTS = ['সবগুলো','ছাত্র','ছাত্রী','ফ্যামিলি'];
-const tenantLabel = {ছাত্র:'ছাত্র/পুরুষ', ছাত্রী:'ছাত্রী/নারী', ফ্যামিলি:'ফ্যামিলি', সবগুলো:'সবগুলো'};
-const typeLabel = {ফ্ল্যাট:'ফ্ল্যাট/বাসা'};
-
-function pills(el, arr, key, labels={}){
-  $(el).innerHTML = arr.map(v => `<button data-v="${v}" class="px-3 py-1.5 rounded-full text-sm border ${F[key]===v?'bg-emerald-600 text-white border-emerald-600':'bg-white'}">${labels[v]||v}</button>`).join('');
-  $(el).querySelectorAll('button').forEach(b => b.onclick = () => { F[key]=b.dataset.v; renderRentals(); });
-}
-function renderRentals(){
-  pills('#typeFilters', TYPES, 'type', typeLabel);
-  pills('#tenantFilters', TENANTS, 'tenant', tenantLabel);
-  const max = +$('#priceRange').value;
-  $('#priceLabel').textContent = max>=50000 ? 'সীমাহীন' : '৳' + bn(max.toLocaleString('en-IN'));
-  const q = $('#searchInput').value.trim().toLowerCase();
-  const loc = $('#locSelect').value;
-  const list = rentals.filter(r =>
-    (F.type==='সবগুলো' || r.type===F.type) && (F.tenant==='সবগুলো' || r.tenant===F.tenant) &&
-    (max>=50000 || r.rent<=max) && (!loc || r.location===loc) &&
-    (!q || (r.title+r.location+r.desc+r.type).toLowerCase().includes(q)));
-  $('#rentalList').innerHTML = list.length ? list.map(r => `
-    <article class="bg-white rounded-2xl shadow-sm overflow-hidden">
-      <div class="relative">
-        <img src="${esc(r.img)}" alt="" loading="lazy" onerror="this.src='https://placehold.co/600x350?text=No+Image'" class="w-full h-44 object-cover">
-        <span class="absolute top-2 left-2 bg-emerald-600 text-white text-xs px-2 py-1 rounded-full">${esc(r.type)}</span>
-        <span class="absolute top-2 right-2 bg-white/90 text-xs px-2 py-1 rounded-full">${esc(r.tenant)}</span>
-      </div>
-      <div class="p-4 space-y-2">
-        <div class="flex justify-between items-start">
-      <h3 class="font-bold text-lg">${esc(r.title)}</h3>
-      <div class="relative inline-block text-left">
-        <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="p-1 text-gray-500 hover:text-gray-700 text-xl font-bold focus:outline-none">⋮</button>
-        <div class="hidden absolute right-0 mt-1 w-32 bg-white rounded-md shadow-lg border z-10 py-1">
-          <button onclick="shareRental('${esc(r.title)}')" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">🔗 শেয়ার</button>
-          <button onclick="deleteRental(${r.id})" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2 font-medium">🗑️ ডিলিট</button>
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white py-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-lg p-1 flex items-center justify-center shadow">
+                    <span class="text-blue-600 font-bold text-xl"><i class="fa-solid fa-house-search"></i></span>
+                </div>
+                <h1 class="text-xl font-bold tracking-wide">Basa-Khoj App</h1>
+            </div>
+            <a href="#download" class="bg-white text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-50 transition">ডাউনলোড</a>
         </div>
-      </div>
-    </div>
-        <p class="text-sm text-slate-600">📍 ${esc(r.location)}</p>
-        <p class="text-lg font-bold text-emerald-700">${money(r.rent)}</p>
-        <div class="flex flex-wrap gap-1">${r.feats.map(f=>`<span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full">✔ ${esc(f)}</span>`).join('')}</div>
-        <div class="flex gap-2 pt-1">
-          <a href="tel:${esc(r.phone)}" class="flex-1 text-center bg-emerald-600 text-white rounded-lg py-2 text-sm font-semibold">সরাসরি কল দিন</a>
-          <button data-id="${r.id}" class="detail flex-1 border border-emerald-600 text-emerald-700 rounded-lg py-2 text-sm font-semibold">বিস্তারিত দেখুন</button>
+    </header>
+
+    <!-- Hero / Main Download Section -->
+    <section class="py-12 bg-gradient-to-b from-blue-600 to-blue-800 text-white">
+        <div class="container mx-auto px-4 text-center max-w-2xl">
+            <div class="mb-6 inline-block p-3 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20">
+                <i class="fa-solid fa-mobile-screen-button text-5xl text-blue-200"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4">বাসা ও মেস খুঁজুন এক ক্লিকেই!</h2>
+            <p class="text-blue-100 text-base md:text-lg mb-8 leading-relaxed">
+                আপনার পছন্দের এলাকায় বাসা, মেস ও জরুরী সব সেবা পেতে এখনই ইন্সটল করুন বাসা-খোঁজ অ্যান্ড্রয়েড অ্যাপ।
+            </p>
+
+            <!-- Download Button -->
+            <div id="download" class="bg-white text-slate-900 p-6 rounded-2xl shadow-xl max-w-md mx-auto border border-blue-100">
+                <h3 class="font-bold text-lg mb-2 text-slate-800">অ্যান্ড্রয়েড অ্যাপ (APK)</h3>
+                <p class="text-xs text-slate-500 mb-4">ভার্সন: 1.0 • সম্পূর্ণ ফ্রি</p>
+
+                <!-- DIRECT GOOGLE DRIVE APK LINK -->
+                <a href="https://drive.google.com/uc?export=download&id=1VjTgAHx_IcjSVqaoFKeu9DE1fdn602XC" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-download text-xl"></i>
+                    <span>APK ডাউনলোড করুন</span>
+                </a>
+
+                <p class="text-xs text-amber-600 mt-4 text-left bg-amber-50 p-3 rounded-lg border border-amber-200">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+                    <b>ইনস্টল নোট:</b> ডাউনলোড শেষে ইনস্টল করার সময় "Install from Unknown Sources" অনুমতি দিতে হতে পারে।
+                </p>
+            </div>
         </div>
-      </div>
-    </article>`).join('') : '<p class="text-slate-500 col-span-full text-center py-10">কোনো লিস্টিং পাওয়া যায়নি।</p>';
-  document.querySelectorAll('.detail').forEach(b => b.onclick = () => showDetail(+b.dataset.id));
-}
-function showDetail(id){
-  const r = rentals.find(x=>x.id===id); if(!r) return;
-  openModal(`
-    <img src="${esc(r.img)}" onerror="this.src='https://placehold.co/600x350?text=No+Image'" class="w-full h-52 object-cover rounded-xl mb-3">
-    <div class="flex gap-2 mb-2"><span class="bg-emerald-600 text-white text-xs px-2 py-1 rounded-full">${esc(r.type)}</span><span class="bg-slate-100 text-xs px-2 py-1 rounded-full">${esc(r.tenant)}</span></div>
-    <h2 class="text-xl font-bold">${esc(r.title)}</h2>
-    <p class="text-slate-600 text-sm mt-1">📍 ${esc(r.location)}</p>
-    <p class="text-2xl font-bold text-emerald-700 my-2">${money(r.rent)}</p>
-    <p class="text-sm mb-3">${esc(r.desc)}</p>
-    <div class="flex flex-wrap gap-1 mb-4">${r.feats.map(f=>`<span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full">✔ ${esc(f)}</span>`).join('')}</div>
-    <p class="text-sm mb-3">📞 ${bn(r.phone)}</p>
-    <a href="tel:${esc(r.phone)}" class="block text-center bg-emerald-600 text-white font-bold py-3 rounded-xl">সরাসরি কল দিন</a>`);
-}
+    </section>
 
-/* ---------- Post form ---------- */
-let fileData = '';
-$('#imgFile').onchange = e => {
-  const f = e.target.files[0]; if(!f) { fileData=''; return; }
-  if(f.size > 1.5*1024*1024){ toast('ছবি ১.৫MB এর কম হতে হবে'); e.target.value=''; return; }
-  const rd = new FileReader(); rd.onload = () => fileData = rd.result; rd.readAsDataURL(f);
-};
-$('#postForm').onsubmit = e => {
-  e.preventDefault();
-  const f = new FormData(e.target);
-  const item = {
-    id: Date.now(), type:f.get('type'), tenant:f.get('tenant'), title:f.get('title').trim(),
-    location:f.get('location'), rent:+f.get('rent'), phone:f.get('phone').trim(),
-    feats: f.get('desc').split(',').map(s=>s.trim()).filter(Boolean).slice(0,6),
-    desc: f.get('desc').trim() || 'বিস্তারিত জানতে কল করুন।',
-    img: fileData || f.get('imgUrl') || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600'
-  };
-  rentals.unshift(item);
-  try { localStorage.setItem('rentals', JSON.stringify(rentals)); }
-  catch(err){ toast('জায়গা কম — ছবি ছাড়া চেষ্টা করুন'); }
-  e.target.reset(); fileData='';
-  toast('✅ পোস্ট সফল হয়েছে!');
-  switchTab('rentals');
-};
-function deleteRental(id) {
-  if (confirm('আপনি কি সত্যিই এই পোস্টটি মুছে ফেলতে চান?')) {
-    rentals = rentals.filter(item => item.id !== id);
-    try {
-      localStorage.setItem('rentals', JSON.stringify(rentals));
-    } catch(err) {}
-    renderRentals();
-    toast('🗑️ পোস্টটি মুছে ফেলা হয়েছে!');
-  }
-}
+    <!-- Features Section -->
+    <section class="py-12 container mx-auto px-4 max-w-4xl">
+        <h3 class="text-2xl font-bold text-center mb-8 text-slate-800">অ্যাপের বিশেষ সুবিধাসমূহ</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <h4 class="font-bold mb-2">এলাকাভিত্তিক ফিল্টার</h4>
+                <p class="text-sm text-slate-600">ঢাকা শহরের প্রতিটি এলাকা অনুযায়ী সহজে বাসা ও মেস খুঁজে নেওয়ার সুবিধা।</p>
+            </div>
 
-function shareRental(title) {
-  if (navigator.share) {
-    navigator.share({ title: title, url: window.location.href });
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    toast('📋 লিংক কপি করা হয়েছে!');
-  }
-  }
-/* ---------- Tabs & wiring ---------- */
-function switchTab(name){
-  document.querySelectorAll('.tab').forEach(t => t.classList.add('hidden'));
-  $('#tab-'+name).classList.remove('hidden');
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('tab-active', b.dataset.tab===name));
-  if(name==='rentals') renderRentals();
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-document.querySelectorAll('.tab-btn').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
-$('#priceRange').oninput = renderRentals;
-$('#locSelect').onchange = () => { renderDir(); renderRentals(); };
-$('#searchInput').oninput = () => { renderDir(); renderRentals(); };
-document.querySelectorAll('.tab').forEach(el => {
-  el.addEventListener('click', () => {
-    window.scrollBy({ top: 400, behavior: 'smooth' });
-  });
-});
-renderCats(); renderDir(); renderRentals(); switchTab('emergency'); 
-</script>
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                    <i class="fa-solid fa-kit-medical"></i>
+                </div>
+                <h4 class="font-bold mb-2">জরুরী সেবা</h4>
+                <p class="text-sm text-slate-600">হাসপাতাল, অ্যাম্বুলেন্স, ব্লাড ডোনার ও নিকটস্থ থানার ঠিকানা এক ক্লিকেই।</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h4 class="font-bold mb-2">সহজ ও দ্রুতগতি</h4>
+                <p class="text-sm text-slate-600">খুবই কম জায়গা নেয় এবং যেকোনো কমদামী ফোনেও দ্রুত কাজ করে।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Policy & Contact -->
+    <footer class="bg-slate-800 text-slate-300 py-8 text-center text-sm">
+        <div class="container mx-auto px-4">
+            <p class="mb-4">© Basa-Khoj. সর্বস্বত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+
 </body>
 </html>
